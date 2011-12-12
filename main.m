@@ -1,10 +1,22 @@
 %% Floete
-
+clear
 [flsig,fs,nbits] = wavread('wav/floetesoft.wav');
 [flspe,p] = spektrum(flsig,fs);
 plot(flspe/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
+
+%% Kurzzeit-Spektrum der Floete
+
+frame_overlap = 10; % ms
+frame_length  = 20;
+window        = 'hamming';
+
+nfft = round(frame_length  * fs / 1000); % convert ms to points
+noverlap = round(frame_overlap * fs / 1000); % convert ms to points
+window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
+
+spectrogram(flsig(:,1), window, noverlap, nfft, fs, 'yaxis');
 
 %% Wiedergabe
 
