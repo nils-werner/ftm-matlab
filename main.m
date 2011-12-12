@@ -6,8 +6,9 @@ plot(flspe/1000, 10*log10(p), 'k')
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
 
-%% Kurzzeit-Spektrum der Floete
 
+
+% Kurzzeit-Spektrum der Floete
 frame_overlap = 10; % ms
 frame_length  = 20;
 window        = 'hamming';
@@ -19,24 +20,10 @@ window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 [S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
 surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
+% 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
 sspek = P(:,75)';
 
-%% Wiedergabe
-
-sound(flsig,sf);
-
-%% Synthese-Spektrum
-
-sspek = zeros(1,16000);
-sspek(105) = (10^-42)/10;
-sspek(195) = (10^-68)/10;
-sspek(290) = (10^-74)/10;
-sspek(380) = (10^-84)/10;
-sspek(475) = (10^-92)/10;
-
-sspek = sspek./max(abs(sspek));
-%% Sinus
-
+% Sinus
 %sf = 44100;
 x = [0:1/sf:4.0];
 
@@ -67,12 +54,9 @@ end
 sig = sig ./ max(abs(sig));
 plot(x(1:1000),sig(1:1000));
 
-%% Wiedergabe
 
-sound(sig,sf)
 
-%% Leistungsspektrum
-
+% Leistungsspektrum
 subplot(2,1,1)
 [freq,p] = spektrum(sig,sf);
 plot(freq/1000, 10*log10(p), 'k') 
@@ -81,6 +65,15 @@ subplot(2,1,2)
 plot(freq/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
+
+
+%% Wiedergabe Synthese
+
+sound(sig,sf)
+
+%% Wiedergabe
+
+sound(flsig,sf);
 
 %% Testmusik
 
