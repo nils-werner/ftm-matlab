@@ -1,4 +1,4 @@
-function [freq] = spektrum(sig)
+function [freq,p] = spektrum(sig,sf)
 %SPEKTRUM Leistungs-Spektrum zu einem Signalvektor erzeugen
 %   Detailed explanation goes here
 
