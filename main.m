@@ -1,8 +1,8 @@
 %% Floete
 
-[flsig,fs,nbits] = wavread('wav/floete.wav');
+[flsig,fs,nbits] = wavread('wav/floetesoft.wav');
 [flspe,p] = spektrum(flsig,fs);
-plot(flspe/1000, p, 'k') 
+plot(flspe/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
 
