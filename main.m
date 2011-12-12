@@ -16,7 +16,8 @@ nfft = round(frame_length  * fs / 1000); % convert ms to points
 noverlap = round(frame_overlap * fs / 1000); % convert ms to points
 window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 
-spectrogram(flsig(:,1), window, noverlap, nfft, fs, 'yaxis');
+[S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, fs);
+surf(T,F,10*log10(P),'edgecolor','none'); axis tight; 
 
 %% Wiedergabe
 
