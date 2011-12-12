@@ -1,7 +1,7 @@
 %% Floete
 clear
-[flsig,fs,nbits] = wavread('wav/floetesoft.wav');
-[flspe,p] = spektrum(flsig,fs);
+[flsig,sf,nbits] = wavread('wav/floetesoft.wav');
+[flspe,p] = spektrum(flsig,sf);
 plot(flspe/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
@@ -12,35 +12,32 @@ frame_overlap = 10; % ms
 frame_length  = 20;
 window        = 'hamming';
 
-nfft = round(frame_length  * fs / 1000); % convert ms to points
-noverlap = round(frame_overlap * fs / 1000); % convert ms to points
+nfft = round(frame_length  * sf / 1000); % convert ms to points
+noverlap = round(frame_overlap * sf / 1000); % convert ms to points
 window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 
-[S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, fs);
-surf(T,F,10*log10(P),'edgecolor','none'); axis tight; 
+[S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
+surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
+
+sspek = P(75,:)';
 
 %% Wiedergabe
 
-sound(flsig,fs);
+sound(flsig,sf);
 
 %% Synthese-Spektrum
 
 sspek = zeros(1,16000);
-sspek(942) = 0.5;
-sspek(945) = 0.8;
-sspek(947) = 1.1;
-sspek(945) = 1;
-
-sspek(974) = 0.4;
-sspek(978) = 3;
-sspek(980) = 1;
-
-sspek(1891) = 0.2;
+sspek(105) = (10^-42)/10;
+sspek(195) = (10^-68)/10;
+sspek(290) = (10^-74)/10;
+sspek(380) = (10^-84)/10;
+sspek(475) = (10^-92)/10;
 
 sspek = sspek./max(abs(sspek));
 %% Sinus
 
-sf = 44100;
+%sf = 44100;
 x = [0:1/sf:4.0];
 
 %sspek=zeros(0,16000);
@@ -51,11 +48,11 @@ f=0;
 
 sig = sin(2*pi*0*2*x).*0;
 
-for i=sspek
-	f = f+1;
+for i=sspek'
 	if i > 0
 		sig = sig+sin(2*pi*f*2*x).*i;
 	end
+	f = f+1;
 end
 
 %sig = sin(2*pi*440*x);
