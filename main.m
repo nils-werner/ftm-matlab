@@ -73,7 +73,11 @@ sound(sig,sf)
 
 %% Leistungsspektrum
 
+subplot(2,1,1)
 [freq,p] = spektrum(sig,sf);
+plot(freq/1000, 10*log10(p), 'k') 
+subplot(2,1,2)
+[freq,p] = spektrum(flsig,sf);
 plot(freq/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
