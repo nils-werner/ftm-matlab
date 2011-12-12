@@ -50,7 +50,7 @@ sig = sin(2*pi*0*2*x).*0;
 
 for i=sspek
 	if i > 0
-		sig = sig+sin(2*pi*f*50*2*x).*i;
+		sig = sig+sin(2*pi*f*25*2*x).*i;
 	end
 	f = f+1;
 end
