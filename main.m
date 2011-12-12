@@ -1,7 +1,7 @@
 %% Sinus Plotten
 
 clear
-sf = 44000;
+sf = 44100;
 x = [0:1/sf:4.0];
 sig = sin(2*pi*440*x);
 %plot(x,sig);
