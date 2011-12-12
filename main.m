@@ -24,10 +24,22 @@ sound(sig,sf)
 [freq,p] = spektrum(sig,sf);
 plot(freq/1000, 10*log10(p), 'k') 
 xlabel('Frequency (kHz)') 
-ylabel('Power (dB)') 
+ylabel('Power (dB)')
 
 %% Testmusik
 
 clear
 load handel
 sound(y,Fs)
+
+%% Floete
+
+[flsig,fs,nbits] = wavread('wav/floete.wav');
+[flspe,p] = spektrum(flsig,fs);
+plot(flspe/1000, 10*log10(p), 'k') 
+xlabel('Frequency (kHz)') 
+ylabel('Power (dB)')
+
+%% Wiedergabe
+
+sound(flsig,fs);
