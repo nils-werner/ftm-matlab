@@ -2,7 +2,7 @@
 
 clear
 sf = 44000;
-x = [0.000001:1/sf:4.0];
+x = [0:1/sf:4.0];
 sig = sin(2*pi*440*x);
 %plot(x,sig);
 %sound(sig,sf)
