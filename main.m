@@ -4,9 +4,14 @@ clear
 sf = 44100;
 x = [0:1/sf:4.0];
 sig = sin(2*pi*440*x);
-sig = sig+sin(2*pi*440*2*x);
-sig = sig+sin(2*pi*440*4*x);
-sig = sig+sin(2*pi*440*8*x);
+sig = sig+sin(2*pi*440*2*x)./2;
+sig = sig+sin(2*pi*440*4*x)./4;
+sig = sig+sin(2*pi*440*8*x)./8;
+sig = sig+sin(2*pi*440*16*x)./16;
+%sig = sig+sin(2*pi*440*32*x)./32;
+%sig = sig+sin(2*pi*440*64*x)./64;
+%sig = sig+sin(2*pi*440*128*x)./128;
+%sig = sig+sin(2*pi*440*256*x)./256;
 sig = sig ./ max(abs(sig));
 plot(x(1:1000),sig(1:1000));
 
