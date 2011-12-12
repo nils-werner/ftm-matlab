@@ -27,13 +27,12 @@ sspek(1891) = 0.2;
 sspek = sspek./max(abs(sspek));
 %% Sinus
 
-clear
 sf = 44100;
 x = [0:1/sf:4.0];
 
-sspek=zeros(0,16000);
-sspek(440) = 1;
-sspek(880) = 1;
+%sspek=zeros(0,16000);
+%sspek(440) = 1;
+%sspek(880) = 1;
 
 f=0;
 
