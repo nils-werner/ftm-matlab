@@ -19,7 +19,7 @@ window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 [S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
 surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
-sspek = P(75,:);
+sspek = P(:,75)';
 
 %% Wiedergabe
 
@@ -50,7 +50,7 @@ sig = sin(2*pi*0*2*x).*0;
 
 for i=sspek
 	if i > 0
-		sig = sig+sin(2*pi*f*2*x).*i;
+		sig = sig+sin(2*pi*f*50*2*x).*i;
 	end
 	f = f+1;
 end
