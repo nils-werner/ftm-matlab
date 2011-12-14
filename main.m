@@ -1,6 +1,5 @@
 %% Floete
 disp('Loading File')
-clear
 [flsig,sf,nbits] = wavread('wav/floetesoft.wav');
 [flspe,p] = spektrum(flsig,sf);
 plot(flspe/1000, 10*log10(p), 'k') 
@@ -80,7 +79,15 @@ disp('Done')
 
 sound(sig,sf)
 
-%% Wiedergabe
+%% Synthese festhalten
+
+oldsig = sig;
+
+%% Wiedergabe alte Synthese
+
+sound(oldsig,sf)
+
+%% Wiedergabe Original
 
 sound(flsig,sf);
 
