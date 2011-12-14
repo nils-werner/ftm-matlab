@@ -28,7 +28,7 @@ sspek = P(:,3)';
 
 % Sinus
 %sf = 44100;
-x = [0:1/sf:4.0];
+x = [0:1/sf:2.0];
 
 %sspek=zeros(0,16000);
 %sspek(440) = 1;
