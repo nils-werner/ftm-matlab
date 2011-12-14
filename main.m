@@ -1,4 +1,5 @@
 %% Floete
+disp('Loading File')
 clear
 [flsig,sf,nbits] = wavread('wav/floetesoft.wav');
 [flspe,p] = spektrum(flsig,sf);
@@ -7,6 +8,7 @@ xlabel('Frequency (kHz)')
 ylabel('Power (dB)')
 
 
+disp('Analyzing Spectrum')
 
 % Kurzzeit-Spektrum der Floete
 frame_overlap = 10; % ms
@@ -20,6 +22,8 @@ window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 [S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
 surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
+disp('Extracting Spectrum')
+
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
 sspek = P(:,3)';
 
@@ -31,9 +35,15 @@ x = [0:1/sf:4.0];
 %sspek(440) = 1;
 %sspek(880) = 1;
 
+disp('Normalizing')
+
+sspek = sspek.*max(abs(sspek));
+
+
+fprintf('Synthesizing')
+
 f=0;
 count=0;
-
 sig = sin(2*pi*0*2*x).*0;
 
 for i=sspek
@@ -42,9 +52,14 @@ for i=sspek
 		count = count+1;
 	end
 	f = f+1;
+	if mod(f,200) == 0
+		fprintf('.')
+	end
 end
 
-count
+disp([num2str(count) ' Samples'])
+
+disp('Plotting')
 
 sig = sig ./ max(abs(sig));
 plot(x(1:1000),sig(1:1000));
@@ -59,6 +74,7 @@ plot(freq/1000, 10*log10(p), 'k')
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
 
+disp('Done')
 
 %% Wiedergabe Synthese
 
