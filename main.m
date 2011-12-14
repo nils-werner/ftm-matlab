@@ -13,15 +13,15 @@ frame_overlap = 10; % ms
 frame_length  = 20;
 window        = 'hamming';
 
-nfft = round(frame_length  * sf / 1000); % convert ms to points
-noverlap = round(frame_overlap * sf / 1000); % convert ms to points
+nfft = round(frame_length  * sf / 100); % convert ms to points
+noverlap = round(frame_overlap * sf / 100); % convert ms to points
 window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 
 [S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
 surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
-sspek = P(:,75)';
+sspek = P(:,7)';
 
 % Sinus
 %sf = 44100;
@@ -32,15 +32,19 @@ x = [0:1/sf:4.0];
 %sspek(880) = 1;
 
 f=0;
+count=0;
 
 sig = sin(2*pi*0*2*x).*0;
 
 for i=sspek
 	if i > 0
 		sig = sig+sin(2*pi*f*F(2)*x).*i;
+		count = count+1;
 	end
 	f = f+1;
 end
+
+count
 
 %sig = sin(2*pi*440*x);
 %sig = sig+sin(2*pi*440*2*x)./2;
