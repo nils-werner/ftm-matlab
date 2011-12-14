@@ -45,13 +45,12 @@ f=0;
 count=0;
 sig = sin(2*pi*0*2*x).*0;
 
-for i=sspek
-	if i > 0
-		sig = sig+sin(2*pi*f*F(2)*x).*i;
+for i=1:length(sspek)
+	if sspek(i) > 0
+		sig = sig+sin(2*pi*i*F(2)*x).*sspek(i);
 		count = count+1;
 	end
-	f = f+1;
-	if mod(f,200) == 0
+	if mod(i,200) == 0
 		fprintf('.')
 	end
 end
