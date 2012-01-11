@@ -90,6 +90,10 @@ sound(oldsig,sf)
 
 sound(flsig,sf);
 
+%% Speichern Synthese
+
+wavwrite(sig,sf,'wav/synthese.wav')
+
 %% Testmusik
 
 clear
