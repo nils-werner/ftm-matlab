@@ -6,6 +6,7 @@
 
 play = 1;
 samples = 10000;
+blocks = 2;
 
 
 %
@@ -27,18 +28,32 @@ ylabel('Power (dB)')
 
 disp('Extracting Spectrum')
 sspek = flspe;
-ffreq = flfrq;
+sfreq = flfrq;
 
 % Subsampling
 subsampled = 1:length(sspek)/samples:length(sspek);
 sspek = interp1(1:length(sspek),sspek,subsampled);
-ffreq = interp1(1:length(ffreq),ffreq,subsampled);
+sfreq = interp1(1:length(sfreq),sfreq,subsampled);
+
+tspek = sspek;
+tfreq = sfreq;
+
+sspek = zeros(blocks,length(tspek)/blocks);
+sfreq = zeros(blocks,length(tspek)/blocks);
+
+
+for i=1:blocks
+    %size(tspek((1:length(tspek)/blocks).*i))
+    %size(sspek(1,:))
+    sspek(i,:) = tspek((1:length(tspek)/blocks).*i);
+    sfreq(i,:) = tfreq((1:length(tspek)/blocks).*i);
+end
 
 % Frequenzrauschen gegen Schwebungen
-ffreq = ffreq + rand(size(ffreq));
+sfreq = sfreq + rand(size(sfreq));
 
 % Normalisierung
-sspek = sspek.*max(abs(sspek));
+sspek = sspek.*max(max(abs(sspek)));
 
 
 
@@ -59,16 +74,20 @@ count=0;
 sig = sin(x).*0;
 
 % Über Koeffizienten des Spektrums iterieren
-for i=1:length(sspek)
-	if sspek(i) > 0
-		sig = sig+sin(2*pi*ffreq(i)*x).*sspek(i);
-		count = count+1;
-	end
-	if mod(i,floor(length(sspek)/30)) == 0
-        % Fortschrittsanzeige
-		fprintf('.')
-	end
+tic
+parfor j=1:blocks
+    for i=1:length(sspek(j,:))
+        if sspek(j,i) > 0
+            sig = sig+sin(2*pi*sfreq(j,i)*x).*sspek(j,i);
+            count = count+1;
+        end
+        if mod(i,floor(length(sspek)*blocks/30)) == 0
+            % Fortschrittsanzeige
+            fprintf('.')
+        end
+    end
 end
+toc
 
 disp([num2str(count) ' Samples'])
 
