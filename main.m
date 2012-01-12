@@ -7,11 +7,10 @@
 
 disp('Loading File')
 [flsig,sf,nbits] = wavread('wav/floetesoft.wav');
-[flspe,p] = spektrum(flsig,sf);
-plot(flspe/1000, 10*log10(p), 'k') 
+[flfrq,flspe] = spektrum(flsig,sf);
+plot(flfrq/1000, 10*log10(flspe), 'k') 
 xlabel('Frequency (kHz)') 
 ylabel('Power (dB)')
-
 
 
 
@@ -40,8 +39,8 @@ disp('Extracting Spectrum')
 %
 
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
-sspek = p;
-ffreq = flspe;
+sspek = flspe;
+ffreq = flfrq;
 
 % Normalisierung
 disp('Normalizing')
