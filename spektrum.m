@@ -12,7 +12,7 @@ function [freq,p] = spektrum(sig,sf)
 	p = p/n; % scale by the number of points so that
 			   % the magnitude does not depend on the length 
 			   % of the signal or on its sampling frequency  
-	p = p.^2;  % square it to get the power 
+	%p = p.^2;  % square it to get the power 
 
 	% multiply by two (see technical document for details)
 	if rem(n, 2) % odd nfft excludes Nyquist point 
