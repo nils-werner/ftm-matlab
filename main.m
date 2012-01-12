@@ -70,7 +70,8 @@ for i=1:length(sspek)
 		sig = sig+sin(2*pi*i*F(2)*x).*sspek(i);
 		count = count+1;
 	end
-	if mod(i,200) == 0
+	if mod(i,floor(length(sspek)/30)) == 0
+        % Fortschrittsanzeige
 		fprintf('.')
 	end
 end
