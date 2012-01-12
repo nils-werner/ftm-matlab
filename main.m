@@ -5,6 +5,8 @@
 %
 
 play = 1;
+file = 'floetesoft';
+file = 'gitarre';
 samples = 10000;
 
 
@@ -13,7 +15,7 @@ samples = 10000;
 %
 
 disp('Loading File')
-[flsig,sf,nbits] = wavread('wav/floetesoft.wav');
+[flsig,sf,nbits] = wavread(sprintf('wav/%s.wav',file));
 [flfrq,flspe] = spektrum(flsig,sf);
 plot(flfrq/1000, 10*log10(flspe), 'k') 
 xlabel('Frequency (kHz)') 
@@ -120,7 +122,7 @@ sound(flsig,sf);
 
 %% Speichern Synthese
 
-wavwrite(sig,sf,'wav/synthese.wav')
+wavwrite(sig,sf,sprintf('wav/%s.synth.wav',file))
 
 %% Testmusik
 
