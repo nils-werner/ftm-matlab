@@ -62,12 +62,12 @@ f=0;
 count=0;
 
 % Leeren Signalvektor erzeugen.
-sig = sin(2*pi*0*2*x).*0;
+sig = sin(x).*0;
 
 % Über Koeffizienten des Spektrums iterieren
 for i=1:length(sspek)
 	if sspek(i) > 0
-		sig = sig+sin(2*pi*i*F(2)*x).*sspek(i);
+		sig = sig+sin(2*pi*F(i)*x).*sspek(i);
 		count = count+1;
 	end
 	if mod(i,floor(length(sspek)/30)) == 0
