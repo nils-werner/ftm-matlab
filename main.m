@@ -1,5 +1,12 @@
 %% Floete
 
+%
+% Parameter
+%
+
+play = 1;
+samples = 8000;
+
 
 %
 % Datei laden
@@ -41,6 +48,11 @@ disp('Extracting Spectrum')
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
 sspek = flspe;
 ffreq = flfrq;
+
+subsampled = 1:length(sspek)/samples:length(sspek);
+
+sspek = interp1(1:length(sspek),sspek,subsampled);
+ffreq = interp1(1:length(ffreq),ffreq,subsampled);
 
 % Normalisierung
 disp('Normalizing')
@@ -100,9 +112,13 @@ ylabel('Power (dB)')
 
 disp('Done')
 
-%% Wiedergabe Synthese
+%
+% Wiedergabe Synthese
+%
 
-sound(sig,sf)
+if play == 1
+    sound(sig,sf)
+end
 
 %% Synthese festhalten
 
