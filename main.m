@@ -5,7 +5,7 @@
 %
 
 play = 1;
-file = 'floetesoft';
+%file = 'floetesoft';
 file = 'gitarre';
 samples = 10000;
 
@@ -83,6 +83,7 @@ disp([num2str(count) ' Samples'])
 
 disp('Plotting')
 sig = sig ./ max(abs(sig));
+sig = sig .* 0.999;
 plot(x(1:1000),sig(1:1000));
 
 subplot(2,1,1)
