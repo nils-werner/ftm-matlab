@@ -41,6 +41,7 @@ disp('Extracting Spectrum')
 
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
 sspek = P(:,3)';
+ffreq = F;
 
 % Normalisierung
 disp('Normalizing')
@@ -67,7 +68,7 @@ sig = sin(x).*0;
 % Über Koeffizienten des Spektrums iterieren
 for i=1:length(sspek)
 	if sspek(i) > 0
-		sig = sig+sin(2*pi*F(i)*x).*sspek(i);
+		sig = sig+sin(2*pi*ffreq(i)*x).*sspek(i);
 		count = count+1;
 	end
 	if mod(i,floor(length(sspek)/30)) == 0
