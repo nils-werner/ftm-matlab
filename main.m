@@ -40,8 +40,8 @@ disp('Extracting Spectrum')
 %
 
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
-sspek = P(:,3)';
-ffreq = F;
+sspek = p;
+ffreq = flspe;
 
 % Normalisierung
 disp('Normalizing')
