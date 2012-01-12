@@ -5,7 +5,7 @@
 %
 
 play = 1;
-samples = 8000;
+samples = 10000;
 
 
 %
