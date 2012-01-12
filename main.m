@@ -126,6 +126,10 @@ end
 
 oldsig = sig;
 
+%% Wiedergabe Synthese
+
+sound(sig,sf)
+
 %% Wiedergabe alte Synthese
 
 sound(oldsig,sf)
