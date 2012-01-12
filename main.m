@@ -37,7 +37,7 @@ window   = eval(sprintf('%s(nfft)', window)); % e.g., hamming(nfft)
 [S,F,T,P] = spectrogram(flsig(:,1), window, noverlap, nfft, sf);
 surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
-disp('Extracting Spectrum')
+
 
 
 
@@ -45,19 +45,19 @@ disp('Extracting Spectrum')
 % Spektrum extrahieren und normalisieren
 %
 
-% 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
+disp('Extracting Spectrum')
 sspek = flspe;
 ffreq = flfrq;
 
+% Subsampling
 subsampled = 1:length(sspek)/samples:length(sspek);
-
 sspek = interp1(1:length(sspek),sspek,subsampled);
 ffreq = interp1(1:length(ffreq),ffreq,subsampled);
 
+% Frequenzrauschen gegen Schwebungen
 ffreq = ffreq + rand(size(ffreq));
 
 % Normalisierung
-disp('Normalizing')
 sspek = sspek.*max(abs(sspek));
 
 
