@@ -5,9 +5,10 @@
 %
 
 play = 1;
-%file = 'floetesoft';
-file = 'gitarre';
-samples = 10000;
+file = 'floetesoft';
+%file = 'gitarre';
+samples = 20000;
+bands = 1000;
 
 
 %
@@ -33,8 +34,13 @@ ffreq = flfrq;
 
 % Subsampling
 subsampled = 1:length(sspek)/samples:length(sspek);
-sspek = interp1(1:length(sspek),sspek,subsampled);
-ffreq = interp1(1:length(ffreq),ffreq,subsampled);
+sspek = interp1(1:length(sspek),sspek,subsampled)';
+ffreq = interp1(1:length(ffreq),ffreq,subsampled)';
+
+% Wichtigste Anteile extrahieren
+[trash, maxspe] = sort(sspek, 1, 'descend');
+sspek = sspek(maxspe(1:bands));
+ffreq = ffreq(maxspe(1:bands));
 
 % Frequenzrauschen gegen Schwebungen
 ffreq = ffreq + rand(size(ffreq));
