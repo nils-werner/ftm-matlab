@@ -24,10 +24,10 @@ ylabel('Power (dB)')
 
 
 %
-% Spektrum extrahieren und normalisieren
+% Spektrum vorbereiten
 %
 
-disp('Extracting Spectrum')
+disp('Processing Spectrum')
 sspek = flspe;
 ffreq = flfrq;
 
@@ -38,9 +38,6 @@ ffreq = interp1(1:length(ffreq),ffreq,subsampled);
 
 % Frequenzrauschen gegen Schwebungen
 ffreq = ffreq + rand(size(ffreq));
-
-% Normalisierung
-sspek = sspek.*max(abs(sspek));
 
 
 
