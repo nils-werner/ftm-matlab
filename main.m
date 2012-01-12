@@ -1,4 +1,10 @@
 %% Floete
+
+
+%
+% Datei laden
+%
+
 disp('Loading File')
 [flsig,sf,nbits] = wavread('wav/floetesoft.wav');
 [flspe,p] = spektrum(flsig,sf);
@@ -7,9 +13,13 @@ xlabel('Frequency (kHz)')
 ylabel('Power (dB)')
 
 
-disp('Analyzing Spectrum')
 
+
+%
 % Kurzzeit-Spektrum der Floete
+%
+
+disp('Analyzing Spectrum')
 frame_overlap = 10; % ms
 frame_length  = 20;
 window        = 'hamming';
@@ -23,28 +33,38 @@ surf(T,F,10*log10(P),'edgecolor','none'); axis tight;
 
 disp('Extracting Spectrum')
 
+
+
+%
+% Spektrum extrahieren und normalisieren
+%
+
 % 75te Spalte = Spektrum zum Zeitpunkt 0:00:00:75
 sspek = P(:,3)';
 
-% Sinus
-%sf = 44100;
-x = [0:1/sf:2.0];
-
-%sspek=zeros(0,16000);
-%sspek(440) = 1;
-%sspek(880) = 1;
-
+% Normalisierung
 disp('Normalizing')
-
 sspek = sspek.*max(abs(sspek));
 
 
+
+
+%
+% Synthese
+%
+
 fprintf('Synthesizing')
+
+% X-Achse
+x = [0:1/sf:2.0];
 
 f=0;
 count=0;
+
+% Leeren Signalvektor erzeugen.
 sig = sin(2*pi*0*2*x).*0;
 
+% Über Koeffizienten des Spektrums iterieren
 for i=1:length(sspek)
 	if sspek(i) > 0
 		sig = sig+sin(2*pi*i*F(2)*x).*sspek(i);
@@ -57,12 +77,17 @@ end
 
 disp([num2str(count) ' Samples'])
 
-disp('Plotting')
 
+
+
+%
+% Spektren plotten
+%
+
+disp('Plotting')
 sig = sig ./ max(abs(sig));
 plot(x(1:1000),sig(1:1000));
 
-% Leistungsspektrum
 subplot(2,1,1)
 [freq,p] = spektrum(sig,sf);
 plot(freq/1000, 10*log10(p), 'k') 
