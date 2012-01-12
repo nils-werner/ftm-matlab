@@ -54,6 +54,8 @@ subsampled = 1:length(sspek)/samples:length(sspek);
 sspek = interp1(1:length(sspek),sspek,subsampled);
 ffreq = interp1(1:length(ffreq),ffreq,subsampled);
 
+ffreq = ffreq + rand(size(ffreq));
+
 % Normalisierung
 disp('Normalizing')
 sspek = sspek.*max(abs(sspek));
