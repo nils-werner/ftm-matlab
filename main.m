@@ -5,10 +5,20 @@
 %
 
 play = 1;
+% bool switch
+
 file = 'floetesoft';
 %file = 'gitarre';
+% string filename
+
 samples = 20000;
+% integer number
+
 bands = 1000;
+% integer number
+
+sidebandsthreshold = 0;
+% integer bandwith
 
 
 %
