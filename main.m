@@ -49,8 +49,26 @@ ffreq = interp1(1:length(ffreq),ffreq,subsampled)';
 
 % Wichtigste Anteile extrahieren
 [trash, maxspe] = sort(sspek, 1, 'descend');
-sspek = sspek(maxspe(1:bands));
-ffreq = ffreq(maxspe(1:bands));
+
+% Frequenzauflösung ermitteln, Indexthreshold aus Sidebandthreshold ermitteln
+freqres = ffreq(2);
+threshold = floor(sidebandsthreshold/freqres);
+
+tspek = sspek;
+tfreq = ffreq;
+
+sspek = zeros(bands,1);
+ffreq = zeros(bands,1);
+
+% Maximum finden, Nachbarn innerhalb von sidebandthreshold Hz ignorieren
+for i=1:bands
+    sspek(i) = tspek(maxspe(1));
+    ffreq(i) = tfreq(maxspe(1));
+    maxspe((maxspe < maxspe(1)+threshold & maxspe > maxspe(1)-threshold) | maxspe == maxspe(1)) = [];
+    if isempty(maxspe)
+        break;
+    end
+end
 
 % Frequenzrauschen gegen Schwebungen
 ffreq = ffreq + rand(size(ffreq));
