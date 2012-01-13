@@ -65,7 +65,7 @@ ffreq = ffreq + rand(size(ffreq));
 fprintf('Synthesizing')
 
 % X-Achse
-x = [0:1/sf:2.0];
+x = 0:1/sf:2.0;
 
 f=0;
 count=0;
