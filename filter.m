@@ -18,15 +18,18 @@ l = 0.65;
 Ts = 60.97;
 rho = 1140;
 A = 0.5188*10^-6;
-m = 1:10;
+m = 1:30;
 
 T = 44100;
 
 H = [];
+omegas = [];
 
 for i = m;
 	sigma = 0;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
+	
+	omegas = [omegas omega];
 	
 	b = T*sin(omega*T)/(omega*T);
 	c1 = -2*exp(sigma*T)*cos(omega*T);
@@ -36,5 +39,9 @@ for i = m;
 	den = [1 c1 c0];
 	
 	H = [H tf(num, den, 0.1)]
+
 end
+
+plot(0,omegas, 'x');
+
 %sound(impulse(H,2),T);
