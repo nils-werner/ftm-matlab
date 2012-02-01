@@ -14,6 +14,8 @@ impz(10*bz,az,[],10);
 % G = -----------------
 %     z^2 + c_1*z + c_0
 
+clf
+
 l = 0.65;
 Ts = 60.97;
 rho = 1140;
@@ -27,7 +29,7 @@ sigmas = [];
 omegas = [];
 
 for i = m;
-	sigma = -0.02*i^2;
+	sigma = -0.00000002*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
 	sigmas = [sigmas sigma];
@@ -42,8 +44,14 @@ for i = m;
 	
 	H = [H tf(num, den, 0.1)]
 
+	hold on
+	
+	freqz(num,den,[], T);
+
 end
 
-plot(sigmas,omegas, 'x');
+hold off
+
+%plot(sigmas,omegas, 'x');
 
 %sound(impulse(H,2),T);
