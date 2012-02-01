@@ -2,7 +2,7 @@
 
 [b,a] = butter(4,0.3,'s'); 
 [bz,az] = impinvar(b,a,10);
-sys = tf(b,a);
+sys = tf(b,a)
 impulse(sys);
 hold on;
 impz(10*bz,az,[],10);
