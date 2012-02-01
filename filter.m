@@ -18,12 +18,23 @@ l = 0.65;
 Ts = 60.97;
 rho = 1140;
 A = 0.5188*10^-6;
-m = 1;
+m = 1:10;
 
-sigma = 0;
-omega = m*(pi/l)*sqrt(Ts/(rho*A));
+T = 44100;
 
-num = [0 1 0];
-den = [1 1 1];
+H = [];
 
-H = tf(num, den, 0.1)
+for i = m;
+	sigma = 0;
+	omega = i*(pi/l)*sqrt(Ts/(rho*A));
+	
+	b = T*sin(omega*T)/(omega*T);
+	c1 = -2*exp(sigma*T)*cos(omega*T);
+	c0 = exp(2*sigma*T);
+	
+	num = [0 b 0];
+	den = [1 c1 c0];
+	
+	H = [H tf(num, den, 0.1)]
+end
+%sound(impulse(H,2),T);
