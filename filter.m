@@ -23,12 +23,14 @@ m = 1:30;
 T = 44100;
 
 H = [];
+sigmas = [];
 omegas = [];
 
 for i = m;
-	sigma = 0;
+	sigma = -0.02*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
+	sigmas = [sigmas sigma];
 	omegas = [omegas omega];
 	
 	b = T*sin(omega*T)/(omega*T);
@@ -42,6 +44,6 @@ for i = m;
 
 end
 
-plot(0,omegas, 'x');
+plot(sigmas,omegas, 'x');
 
 %sound(impulse(H,2),T);
