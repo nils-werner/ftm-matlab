@@ -14,7 +14,7 @@ impz(10*bz,az,[],10);
 % G = -----------------
 %     z^2 + c_1*z + c_0
 
-clf
+clear;
 
 l = 0.65;
 Ts = 60.97;
@@ -27,6 +27,12 @@ T = 44100;
 H = [];
 sigmas = [];
 omegas = [];
+
+if(findobj('type','figure','name','freqs'))
+    freqs = figure(findobj('type','figure','name','freqs'));
+else
+    freqs = figure('name','freqs');
+end
 
 for i = m;
 	sigma = -0.00000002*i^2;
@@ -42,7 +48,7 @@ for i = m;
 	num = [0 b 0];
 	den = [1 c1 c0];
 	
-	H = [H tf(num, den, 0.1)]
+	%H = [H tf(num, den, 0.1)]
 
 	hold on
 	
@@ -52,6 +58,12 @@ end
 
 hold off
 
-%plot(sigmas,omegas, 'x');
+if(findobj('type','figure','name','sebene'))
+    sebene = figure(findobj('type','figure','name','sebene'));
+else
+    sebene = figure('name','sebene');
+end
+
+plot(sigmas,omegas, 'x-');
 
 %sound(impulse(H,2),T);
