@@ -16,11 +16,13 @@ impz(10*bz,az,[],10);
 
 clear;
 
+filters = 30;
+
 l = 0.65;
 Ts = 60.97;
 rho = 1140;
 A = 0.5188*10^-6;
-m = 1:30;
+m = 1:filters;
 
 T = 44100;
 
@@ -33,6 +35,8 @@ if(findobj('type','figure','name','freqs'))
 else
     freqs = figure('name','freqs');
 end
+
+cc=hsv(filters);
 
 for i = m;
 	sigma = -0.000000000002*i^2;
@@ -50,7 +54,6 @@ for i = m;
 	
 	%H = [H tf(num, den, 0.1)]
 
-	cc=hsv(30);
 	[h,w] = freqz(num,den,[], T);
 	plot(w,20*log10(abs(h)),'color',cc(i,:));
 	pause(0.1);
@@ -65,6 +68,11 @@ else
     sebene = figure('name','sebene');
 end
 
-plot(sigmas,omegas, 'x-');
+for i = m;
+	plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
+	hold on
+end;
+
+hold off
 
 %sound(impulse(H,2),T);
