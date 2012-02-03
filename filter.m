@@ -35,7 +35,7 @@ else
 end
 
 for i = m;
-	sigma = -0.00000002*i^2;
+	sigma = -0.000000000002*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
 	sigmas = [sigmas sigma];
@@ -50,10 +50,11 @@ for i = m;
 	
 	%H = [H tf(num, den, 0.1)]
 
+	cc=hsv(30);
+	[h,w] = freqz(num,den,[], T);
+	plot(w,20*log10(abs(h)),'color',cc(i,:));
+	pause(0.1);
 	hold on
-	
-	freqz(num,den,[], T);
-
 end
 
 hold off
