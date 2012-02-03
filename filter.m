@@ -45,9 +45,9 @@ for i = m;
 	sigmas = [sigmas sigma];
 	omegas = [omegas omega];
 	
-	b = T*sin(omega*T)/(omega*T);
-	c1 = -2*exp(sigma*T)*cos(omega*T);
-	c0 = exp(2*sigma*T);
+	b = T*sin(omega*1/T)/(omega*1/T);
+	c1 = -2*exp(sigma*1/T)*cos(omega*1/T);
+	c0 = exp(2*sigma*1/T);
 	
 	num = [0 b 0];
 	den = [1 c1 c0];
