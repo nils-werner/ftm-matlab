@@ -109,6 +109,7 @@ hold off
 
 figure(result);
 plot(x,y);
+axis([0 500 1 1])
 
 y = y*min(y)
 
