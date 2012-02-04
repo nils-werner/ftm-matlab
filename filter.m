@@ -32,9 +32,15 @@ else
 end
 
 if(findobj('type','figure','name','signals'))
-    signals = figure(findobj('type','figure','name','sebene'));
+    signals = figure(findobj('type','figure','name','signals'));
 else
     signals = figure('name','signals');
+end
+
+if(findobj('type','figure','name','result'))
+    result = figure(findobj('type','figure','name','result'));
+else
+    result = figure('name','result');
 end
 
 
@@ -54,6 +60,7 @@ seconds = 2;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
 x = 1:samples;
+y = zeros(1,samples);
 
 H = [];
 sigmas = [];
@@ -85,9 +92,9 @@ for i = m;
 	figure(signals);
 	plot(x,filter(num,den,inputdata),'color',cc(i,:));
 	hold on
-	
 	pause(0.1);
-
+	
+	y = y + filter(num,den,inputdata);
 end
 
 hold off
@@ -99,5 +106,8 @@ for i = m;
 end;
 
 hold off
+
+figure(result);
+plot(x,y);
 
 %sound(impulse(H,2),T);
