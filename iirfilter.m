@@ -17,6 +17,8 @@ impz(10*bz,az,[],10);
 clear;
 axis auto;
 
+play = 0;
+
 % Figures initialisieren/wiederfinden
 
 freqs = findfigure('freqs');
@@ -116,7 +118,9 @@ axis([1000 1500 -1.2 1.2]);
 
 hold off
 
-sound(y,T);
+if play == 1
+	sound(y,T);
+end
 
 %%
 
