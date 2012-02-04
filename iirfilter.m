@@ -9,6 +9,7 @@ axis auto;
 
 play = 1;
 plotting = 1;
+filtermode = 'custom';
 
 % Figures initialisieren/wiederfinden
 
@@ -62,11 +63,26 @@ for i = m;
 	num = [0 b 0];
 	den = [1 c1 c0];
 	
+	fA = [0 -c0; 1 -c1];
+	fC = [0 1];
+	
 	[h,w] = freqz(num,den,[], T);
 	
-	sig = filter(num,den,inputdata);
+	state = [0 1]';
+	sig = zeros(1,samples);
 	
-	y = y + a*sig;
+	if strcmp(filtermode,'custom');
+		for j = x;
+			sig(j) = fC * state;
+			state = fA * state;
+		end
+
+		y = y + a*sig;
+	else
+		sig = filter(num,den,inputdata);
+	
+		y = y + a*sig;
+	end
 
 	if plotting == 1
 		sigmas = [sigmas sigma];
