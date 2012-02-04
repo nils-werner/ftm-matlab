@@ -38,7 +38,7 @@ m = 1:filters;
 xa = 0.1;
 
 T = 44100;
-seconds = 2;
+seconds = 4;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
 x = 1:samples;
@@ -116,7 +116,7 @@ axis([1000 1500 -1.2 1.2]);
 
 hold off
 
-%sound(y,T);
+sound(y,T);
 
 %%
 
