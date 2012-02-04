@@ -4,6 +4,7 @@ function [ result ] = findfigure( name )
 
 	if(findobj('type','figure','name',name))
 		result = figure(findobj('type','figure','name',name));
+		clf(result);
 	else
 		result = figure('name',name);
 	end
