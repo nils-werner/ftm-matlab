@@ -9,7 +9,7 @@ axis auto;
 
 play = 1;
 plotting = 1;
-filtermode = 'custom';
+customfilter = 1;
 
 % Figures initialisieren/wiederfinden
 
@@ -71,7 +71,7 @@ for i = m;
 	state = [0 1]';
 	sig = zeros(1,samples);
 	
-	if strcmp(filtermode,'custom');
+	if customfilter == 1;
 		j = 1;
 		while j <= samples
 			sig(j) = fC * state;
