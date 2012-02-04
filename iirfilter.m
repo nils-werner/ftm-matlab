@@ -110,7 +110,7 @@ hold off
 if plotting == 1
 	figure(freqs);
 	for i = m;
-		plot(ws(:,i)',20*log10(as(i)*abs(hs(:,i)')),'color',cc(i,:));
+		plot(ws(:,i)',20*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
 		hold on
 	end
 	axis([0 11000 70 180]);
