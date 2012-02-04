@@ -31,6 +31,11 @@ else
     sebene = figure('name','sebene');
 end
 
+if(findobj('type','figure','name','signals'))
+    signals = figure(findobj('type','figure','name','sebene'));
+else
+    signals = figure('name','signals');
+end
 
 
 
@@ -48,13 +53,13 @@ T = 44100;
 seconds = 2;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
+x = 1:samples;
 
 H = [];
 sigmas = [];
 omegas = [];
 
 cc=hsv(filters);
-figure(freqs);
 
 for i = m;
 	sigma = -0.000000000002*i^2;
@@ -72,10 +77,17 @@ for i = m;
 	
 	%H = [H tf(num, den, 0.1)]
 
+	figure(freqs);
 	[h,w] = freqz(num,den,[], T);
 	plot(w,20*log10(abs(h)),'color',cc(i,:));
-	pause(0.1);
 	hold on
+	
+	figure(signals);
+	plot(x,filter(num,den,inputdata),'color',cc(i,:));
+	hold on
+	
+	pause(0.1);
+
 end
 
 hold off
