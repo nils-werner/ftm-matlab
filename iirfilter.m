@@ -18,6 +18,7 @@ clear;
 axis auto;
 
 play = 0;
+plotting = 0;
 
 % Figures initialisieren/wiederfinden
 
@@ -61,9 +62,6 @@ for i = m;
 	sigma = -0.2*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
-	sigmas = [sigmas sigma];
-	omegas = [omegas omega];
-	
 	b = T*sin(omega*1/T)/(omega*1/T);
 	c1 = -2*exp(sigma*1/T)*cos(omega*1/T);
 	c0 = exp(2*sigma*1/T);
@@ -71,52 +69,59 @@ for i = m;
 	num = [0 b 0];
 	den = [1 c1 c0];
 	
-	nums = [nums num'];
-	dens = [dens den'];
-	
 	[h,w] = freqz(num,den,[], T);
-	
-	hs = [hs h];
-	ws = [ws w];
+
+	if plotting == 1
+		sigmas = [sigmas sigma];
+		omegas = [omegas omega];
+
+		nums = [nums num'];
+		dens = [dens den'];
+
+		hs = [hs h];
+		ws = [ws w];
+	end
 
 	y = y + a*filter(num,den,inputdata);
 end
 
-hold off
-
-figure(freqs);
-for i = m;
-	plot(ws(:,i)',20*log10(abs(hs(:,i)')),'color',cc(i,:));
-	hold on
-end
-
-hold off
-
-figure(signals);
-for i = m;
-	plot(x,filter(nums(:,i)',dens(:,i)',inputdata),'color',cc(i,:));
-	hold on
-end
-axis([1000 1500 -1.2 1.2]);
-
-hold off
-
-figure(sebene);
-for i = m;
-	plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
-	hold on
-end;
-
-hold off
-
 y = y./max(abs(y));
 
-hold on
-figure(result);
-plot(x,y);
-axis([1000 1500 -1.2 1.2]);
-
 hold off
+
+if plotting == 1
+	figure(freqs);
+	for i = m;
+		plot(ws(:,i)',20*log10(abs(hs(:,i)')),'color',cc(i,:));
+		hold on
+	end
+
+	hold off
+
+	figure(signals);
+	for i = m;
+		plot(x,filter(nums(:,i)',dens(:,i)',inputdata),'color',cc(i,:));
+		hold on
+	end
+	axis([1000 1500 -1.2 1.2]);
+
+	hold off
+
+	figure(sebene);
+	for i = m;
+		plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
+		hold on
+	end;
+
+	hold off
+
+	hold on
+	figure(result);
+	plot(x,y);
+	axis([1000 1500 -1.2 1.2]);
+
+	hold off
+end
 
 if play == 1
 	sound(y,T);
