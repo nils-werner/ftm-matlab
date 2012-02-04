@@ -17,8 +17,8 @@ impz(10*bz,az,[],10);
 clear;
 axis auto;
 
-play = 0;
-plotting = 0;
+play = 1;
+plotting = 1;
 
 % Figures initialisieren/wiederfinden
 
@@ -41,7 +41,7 @@ m = 1:filters;
 xa = 0.1;
 
 T = 44100;
-seconds = 4;
+seconds = 10;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
 x = 1:samples;
@@ -57,6 +57,7 @@ hs = [];
 
 cc=hsv(filters);
 
+tic
 for i = m;
 	a = sin(i*pi*xa/l);
 	sigma = -0.2*i^2;
@@ -84,6 +85,7 @@ for i = m;
 
 	y = y + a*filter(num,den,inputdata);
 end
+toc
 
 y = y./max(abs(y));
 
