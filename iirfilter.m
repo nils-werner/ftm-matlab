@@ -32,6 +32,7 @@ m = 1:filters;
 xa = 0.1;
 
 T = 44100;
+blocksize = 100;
 seconds = 1;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
@@ -65,6 +66,7 @@ for i = m;
 	
 	fA = [0 -c0; 1 -c1];
 	fC = [0 1];
+	CA = [];
 	
 	[h,w] = freqz(num,den,[], T);
 	
@@ -73,10 +75,18 @@ for i = m;
 	
 	if customfilter == 1;
 		j = 1;
-		while j <= samples
-			sig(j) = fC * state;
-			state = fA * state;
+		while j <= blocksize
+			CA = [CA; fC * fA^j];
 			j = j + 1;
+		end
+		
+		Ap = fA^blocksize;
+		
+		j = 1;
+		while j <= samples
+			sig(j:j+blocksize-1) = CA * state;
+			state = Ap * state;
+			j = j + blocksize;
 		end
 
 		y = y + a*sig;
