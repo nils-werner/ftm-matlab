@@ -69,7 +69,7 @@ omegas = [];
 cc=hsv(filters);
 
 for i = m;
-	sigma = -0.000000000002*i^2;
+	sigma = -0.2*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
 	sigmas = [sigmas sigma];
@@ -110,4 +110,14 @@ hold off
 figure(result);
 plot(x,y);
 
-%sound(impulse(H,2),T);
+y = y*min(y)
+
+sound(y,T);
+
+%%
+
+wavwrite(y,T,'wav/filter.synth.wav');
+
+%%
+
+sound(y,T);
