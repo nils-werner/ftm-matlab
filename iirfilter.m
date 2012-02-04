@@ -19,29 +19,10 @@ clear;
 
 % Figures initialisieren/wiederfinden
 
-if(findobj('type','figure','name','freqs'))
-    freqs = figure(findobj('type','figure','name','freqs'));
-else
-    freqs = figure('name','freqs');
-end
-
-if(findobj('type','figure','name','sebene'))
-    sebene = figure(findobj('type','figure','name','sebene'));
-else
-    sebene = figure('name','sebene');
-end
-
-if(findobj('type','figure','name','signals'))
-    signals = figure(findobj('type','figure','name','signals'));
-else
-    signals = figure('name','signals');
-end
-
-if(findobj('type','figure','name','result'))
-    result = figure(findobj('type','figure','name','result'));
-else
-    result = figure('name','result');
-end
+freqs = findfigure('freqs');
+sebene = findfigure('sebene');
+signals = findfigure('signals');
+result = findfigure('result');
 
 
 
