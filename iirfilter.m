@@ -105,7 +105,6 @@ if plotting == 1
 		plot(x,filter(nums(:,i)',dens(:,i)',inputdata),'color',cc(i,:));
 		hold on
 	end
-	axis([1000 1500 -1.2 1.2]);
 
 	hold off
 
