@@ -72,9 +72,11 @@ for i = m;
 	sig = zeros(1,samples);
 	
 	if strcmp(filtermode,'custom');
-		for j = x;
+		j = 1;
+		while j <= samples
 			sig(j) = fC * state;
 			state = fA * state;
+			j = j + 1;
 		end
 
 		y = y + a*sig;
