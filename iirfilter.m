@@ -31,7 +31,7 @@ m = 1:filters;
 xa = 0.1;
 
 T = 44100;
-seconds = 10;
+seconds = 1;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
 x = 1:samples;
@@ -44,6 +44,8 @@ nums = [];
 dens = [];
 ws = [];
 hs = [];
+sigs = [];
+as = [];
 
 cc=hsv(filters);
 
@@ -61,6 +63,10 @@ for i = m;
 	den = [1 c1 c0];
 	
 	[h,w] = freqz(num,den,[], T);
+	
+	sig = filter(num,den,inputdata);
+	
+	y = y + a*sig;
 
 	if plotting == 1
 		sigmas = [sigmas sigma];
@@ -68,12 +74,14 @@ for i = m;
 
 		nums = [nums num'];
 		dens = [dens den'];
+		
+		as = [as a];
+		
+		sigs = [sigs sig'];
 
 		hs = [hs h];
 		ws = [ws w];
 	end
-
-	y = y + a*filter(num,den,inputdata);
 end
 toc
 
@@ -92,7 +100,7 @@ if plotting == 1
 
 	figure(signals);
 	for i = m;
-		plot(x,filter(nums(:,i)',dens(:,i)',inputdata),'color',cc(i,:));
+		plot(x,sigs(:,i),'color',cc(i,:));
 		hold on
 	end
 
