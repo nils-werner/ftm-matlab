@@ -16,6 +16,26 @@ impz(10*bz,az,[],10);
 
 clear;
 
+
+% Figures initialisieren/wiederfinden
+
+if(findobj('type','figure','name','freqs'))
+    freqs = figure(findobj('type','figure','name','freqs'));
+else
+    freqs = figure('name','freqs');
+end
+
+if(findobj('type','figure','name','sebene'))
+    sebene = figure(findobj('type','figure','name','sebene'));
+else
+    sebene = figure('name','sebene');
+end
+
+
+
+
+% Koeffizienten und Daten
+
 filters = 30;
 
 l = 0.65;
@@ -33,13 +53,8 @@ H = [];
 sigmas = [];
 omegas = [];
 
-if(findobj('type','figure','name','freqs'))
-    freqs = figure(findobj('type','figure','name','freqs'));
-else
-    freqs = figure('name','freqs');
-end
-
 cc=hsv(filters);
+figure(freqs);
 
 for i = m;
 	sigma = -0.000000000002*i^2;
@@ -65,12 +80,7 @@ end
 
 hold off
 
-if(findobj('type','figure','name','sebene'))
-    sebene = figure(findobj('type','figure','name','sebene'));
-else
-    sebene = figure('name','sebene');
-end
-
+figure(sebene);
 for i = m;
 	plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
 	hold on
