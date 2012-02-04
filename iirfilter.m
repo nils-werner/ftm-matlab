@@ -15,7 +15,7 @@ impz(10*bz,az,[],10);
 %     z^2 + c_1*z + c_0
 
 clear;
-
+axis auto;
 
 % Figures initialisieren/wiederfinden
 
@@ -93,6 +93,7 @@ for i = m;
 	plot(x,filter(nums(:,i)',dens(:,i)',inputdata),'color',cc(i,:));
 	hold on
 end
+axis([1000 1500 -1.2 1.2]);
 
 hold off
 
@@ -104,14 +105,14 @@ end;
 
 hold off
 
+y = y./max(abs(y));
+
 hold on
 figure(result);
 plot(x,y);
-%axis([0 500 1 1]);
+axis([1000 1500 -1.2 1.2]);
 
 hold off
-
-y = y*min(y);
 
 %sound(y,T);
 
