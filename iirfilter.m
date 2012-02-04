@@ -1,15 +1,5 @@
 %%
 
-[b,a] = butter(4,0.3,'s'); 
-[bz,az] = impinvar(b,a,10);
-sys = tf(b,a)
-impulse(sys);
-hold on;
-impz(10*bz,az,[],10);
-
-
-%%
-
 %            b*z
 % G = -----------------
 %     z^2 + c_1*z + c_0
