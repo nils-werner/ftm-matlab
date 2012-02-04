@@ -25,6 +25,9 @@ A = 0.5188*10^-6;
 m = 1:filters;
 
 T = 44100;
+seconds = 2;
+samples = seconds*T;
+inputdata = [1 zeros(1,samples-1)];
 
 H = [];
 sigmas = [];
