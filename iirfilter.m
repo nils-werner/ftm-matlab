@@ -35,6 +35,7 @@ Ts = 60.97;
 rho = 1140;
 A = 0.5188*10^-6;
 m = 1:filters;
+xa = 0.1;
 
 T = 44100;
 seconds = 2;
@@ -54,6 +55,7 @@ hs = [];
 cc=hsv(filters);
 
 for i = m;
+	a = sin(i*pi*xa/l);
 	sigma = -0.2*i^2;
 	omega = i*(pi/l)*sqrt(Ts/(rho*A));
 	
@@ -75,7 +77,7 @@ for i = m;
 	hs = [hs h];
 	ws = [ws w];
 
-	y = y + filter(num,den,inputdata);
+	y = y + a*filter(num,den,inputdata);
 end
 
 hold off
