@@ -8,6 +8,7 @@ clear;
 axis auto;
 
 play = 1;
+write = 0;
 plotting = 1;
 customfilter = 1;
 
@@ -153,6 +154,10 @@ end
 
 if play == 1
 	sound(y,T);
+end
+
+if write == 1
+	wavwrite(y,T,'wav/filter.synth.wav');
 end
 
 %%
