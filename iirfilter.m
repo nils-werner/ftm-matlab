@@ -32,6 +32,11 @@ A = 0.5188*10^-6;
 m = 1:filters;
 xa = 0.1;
 
+E = 5.4*10^-9;
+I = 0.171*10^-12;
+d1 = 8*10^-5;
+d3 = -1.4*10^-5;
+
 T = 44100;
 blocksize = 100;
 seconds = 1;
@@ -55,8 +60,11 @@ cc=hsv(filters);
 tic
 for i = m;
 	a = sin(i*pi*xa/l);
-	sigma = -0.2*i^2;
-	omega = i*(pi/l)*sqrt(Ts/(rho*A));
+	gamma = i*(pi/l);
+	sigma = (1/(2*rho*A)) * (d3*gamma^2 - d1);
+	%sigma = -0.2*i^2;
+	omega = sqrt( ( (E*I)/(rho*A) - (d3^2)/((2*rho*A)^2) )* gamma^4 + (Ts/(rho*A)) * gamma^2 + (d1/(2*rho*A))^2);
+	%omega = sqrt( Ts/(rho*A) ) * gamma;
 	
 	b = T*sin(omega*1/T)/(omega*1/T);
 	c1 = -2*exp(sigma*1/T)*cos(omega*1/T);
