@@ -5,7 +5,6 @@
 %     z^2 + c_1*z + c_0
 
 clear;
-axis auto;
 
 play = 1;
 write = 0;
@@ -14,10 +13,14 @@ customfilter = 1;
 
 % Figures initialisieren/wiederfinden
 
-freqs = findfigure('freqs');
-sebene = findfigure('sebene');
-signals = findfigure('signals');
-result = findfigure('result');
+if plotting == 1;
+    freqs = findfigure('freqs');
+    sebene = findfigure('sebene');
+    signals = findfigure('signals');
+    result = findfigure('result');
+
+    axis auto;
+end
 
 
 
@@ -39,7 +42,7 @@ d3 = -1.4*10^-5;
 
 T = 44100;
 blocksize = 100;
-seconds = 1;
+seconds = 10;
 samples = seconds*T;
 inputdata = [1 zeros(1,samples-1)];
 x = 1:samples;
@@ -77,8 +80,6 @@ for i = m;
 	fC = [0 1];
 	CA = [];
 	
-	[h,w] = freqz(num,den,[], T);
-	
 	state = [0 1]';
 	sig = zeros(1,samples);
 	
@@ -106,6 +107,8 @@ for i = m;
 	end
 
 	if plotting == 1
+        [h,w] = freqz(num,den,[], T);
+        
 		sigmas = [sigmas sigma];
 		omegas = [omegas omega];
 
@@ -124,9 +127,8 @@ toc
 
 y = y./max(abs(y));
 
-hold off
-
 if plotting == 1
+    hold off
 	figure(freqs);
 	for i = m;
 		plot(ws(:,i)',20*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
