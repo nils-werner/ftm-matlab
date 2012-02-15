@@ -8,7 +8,7 @@ clear;
 
 play = 1;
 write = 0;
-plotting = 1;
+plotting = 0;
 customfilter = 1;
 
 % Figures initialisieren/wiederfinden
@@ -35,7 +35,7 @@ A = 0.5188*10^-6;
 m = 1:filters;
 xa = 0.1;
 
-E = 5.4*10^-9;
+E = 5.4*10^9;
 I = 0.171*10^-12;
 d1 = 8*10^-5;
 d3 = -1.4*10^-5;
