@@ -80,7 +80,7 @@ for i = m;
 	fC = [0 1];
 	CA = [];
 	
-	state = [0 1]';
+	state = [1 0]';
 	sig = zeros(1,samples);
 	
 	if customfilter == 1;
