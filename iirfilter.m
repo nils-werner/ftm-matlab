@@ -85,7 +85,8 @@ for i = m;
 	
 	if customfilter == 1;
 		j = 1;
-		while j <= blocksize
+		CA = fC;
+		while j <= blocksize-1
 			CA = [CA; fC * fA^j];
 			j = j + 1;
 		end
