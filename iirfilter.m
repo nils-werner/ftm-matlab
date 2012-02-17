@@ -58,6 +58,10 @@ hs = [];
 sigs = [];
 as = [];
 
+Ct = [];
+At = [];
+statet = [];
+
 cc=hsv(filters);
 
 tic
@@ -77,30 +81,16 @@ for i = m;
 	den = [1 c1 c0];
 	
 	fA = [0 -c0; 1 -c1];
-	fC = [0 1];
+	fC = [0 a];
 	CA = [];
 	
 	state = [1 0]';
 	sig = zeros(1,samples);
 	
 	if customfilter == 1;
-		j = 1;
-		CA = fC;
-		while j <= blocksize-1
-			CA = [CA; fC * fA^j];
-			j = j + 1;
-		end
-		
-		Ap = fA^blocksize;
-		
-		j = 1;
-		while j <= samples
-			sig(j:j+blocksize-1) = CA * state;
-			state = Ap * state;
-			j = j + blocksize;
-		end
-
-		y = y + a*sig;
+		Ct = [Ct fC];
+		At = blkdiag(At, fA);
+		statet = [statet; state];
 	else
 		sig = filter(num,den,inputdata);
 	
@@ -124,6 +114,26 @@ for i = m;
 		ws = [ws w];
 	end
 end
+
+if customfilter == 1
+	j = 1;
+	while j <= blocksize
+		CA = [CA; Ct * At^j];
+		j = j + 1;
+	end
+	
+	At = At^blocksize;
+	
+	j = 1;
+	while j <= samples
+		sig(j:j+blocksize-1) = CA * statet;
+		statet = At * statet;
+		j = j + blocksize;
+	end
+	
+	y = sig;
+end
+
 toc
 
 y = y./max(abs(y));
