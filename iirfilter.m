@@ -6,14 +6,14 @@
 
 clear;
 
-play = 1;
-write = 0;
-plotting = 0;
-customfilter = 1;
+do_play = 1;
+do_write = 0;
+do_plot = 0;
+do_custom = 1;
 
 % Figures initialisieren/wiederfinden
 
-if plotting == 1;
+if do_plot == 1;
     freqs = findfigure('freqs');
     sebene = findfigure('sebene');
     signals = findfigure('signals');
@@ -87,7 +87,7 @@ for i = m;
 	state = [1 0]';
 	sig = zeros(1,samples);
 	
-	if customfilter == 1;
+	if do_custom == 1;
 		Ct = [Ct fC];
 		At = blkdiag(At, fA);
 		statet = [statet; state];
@@ -97,7 +97,7 @@ for i = m;
 		y = y + a*sig;
 	end
 
-	if plotting == 1
+	if do_plot == 1
         [h,w] = freqz(num,den,[], T);
         
 		sigmas = [sigmas sigma];
@@ -115,7 +115,7 @@ for i = m;
 	end
 end
 
-if customfilter == 1
+if do_custom == 1
 	j = 1;
 	while j <= blocksize
 		CA = [CA; Ct * At^j];
@@ -138,7 +138,7 @@ toc
 
 y = y./max(abs(y));
 
-if plotting == 1
+if do_plot == 1
     hold off
 	figure(freqs);
 	for i = m;
@@ -173,11 +173,11 @@ if plotting == 1
 	hold off
 end
 
-if play == 1
+if do_play == 1
 	sound(y,T);
 end
 
-if write == 1
+if do_write == 1
 	wavwrite(y,T,'wav/filter.synth.wav');
 end
 
