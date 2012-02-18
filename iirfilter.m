@@ -6,7 +6,7 @@
 
 clear;
 
-do_play = 1;
+do_play = 0;
 do_write = 0;
 
 % Koeffizienten und Daten
@@ -65,8 +65,13 @@ for i = m;
 	fC = [0 a];
 	state = [1 0]';
 	
+    % 1-Zeilen Ausgangsmatrix
     block_C = [block_C fC];
+    
+    % Blockdiagonale Übergangsmatrix
     block_A = blkdiag(block_A, fA);
+    
+    % 1-Spalten Zustandsvektor
     block_state = [block_state; state];
 end
 
@@ -86,7 +91,7 @@ while j <= samples
 end
 toc
 
-y = y./max(abs(y));
+y = y./max(abs(y)).*0.9;
 
 if do_play == 1
 	sound(y,T);
