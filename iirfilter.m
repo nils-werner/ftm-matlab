@@ -45,6 +45,9 @@ block_A = [];
 block_CA = [];
 block_state = [];
 
+sigmas = [];
+omegas = [];
+
 tic
 for i = m;
     % Pol aufstellen
@@ -73,6 +76,9 @@ for i = m;
     
     % 1-Spalten Zustandsvektor
     block_state = [block_state; state];
+    
+    omegas = [omegas; omega];
+    sigmas = [sigmas; sigma];
 end
 
 j = 1;
