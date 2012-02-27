@@ -81,13 +81,16 @@ for i = m;
     sigmas = [sigmas; sigma];
 end
 
+block_Apow = eye(size(block_A));
+
 j = 1;
 while j <= blocksize
-    block_CA = [block_CA; block_C * block_A^j];
+    block_Apow = block_Apow*block_A;
+    block_CA = [block_CA; block_C * block_Apow];
     j = j + 1;
 end
 
-block_A = block_A^blocksize;
+block_A = block_Apow;
 
 j = 1;
 while j <= samples
