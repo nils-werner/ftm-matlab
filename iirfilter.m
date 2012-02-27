@@ -53,7 +53,7 @@ for i = m;
     % Pol aufstellen
 	gamma = i*(pi/l);
 	sigma = (1/(2*rho*A)) * (d3*gamma^2 - d1);
-	omega = sqrt( ( (E*I)/(rho*A) - (d3^2)/((2*rho*A)^2) )* gamma^4 + (Ts/(rho*A)) * gamma^2 + (d1/(2*rho*A))^2);
+	omega = sqrt( ( (E*I)/(rho*A) - (d3^2)/((2*rho*A)^2) )* gamma^4 + (Ts/(rho*A)+(d1*d3)/2*(rho*A)^2) * gamma^2 + (d1/(2*rho*A))^2);
     
     % Ausgangsgewichtung
     a = sin(i*pi*xa/l);
