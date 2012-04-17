@@ -6,9 +6,9 @@
 
 clear;
 
-do_play = 1;
+do_play = 0;
 do_write = 0;
-do_plot = 0;
+do_plot = 1;
 do_custom = 1;
 
 % Figures initialisieren/wiederfinden
@@ -146,6 +146,9 @@ if do_plot == 1
 		hold on
 	end
 	axis([0 11000 70 180]);
+	xlabel('Frequenz (Hz)');
+	ylabel('Amplitude (dB)');
+	print('-depsc','../Ausarbeitung/fig/freqz');
 
 	hold off
 
@@ -162,14 +165,20 @@ if do_plot == 1
 		plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
 		hold on
 	end;
+	xlabel('Realteil \sigma');
+	ylabel('Imaginärteil j*\omega');
+	print('-depsc','../Ausarbeitung/fig/sebene');
 
 	hold off
 
 	hold on
 	figure(result);
 	plot(x,y);
+	xlabel('Zeit (samples)');
+	ylabel('Amplitude');
 	axis([1000 1500 -1.2 1.2]);
-
+	print('-depsc','../Ausarbeitung/fig/signal');
+	
 	hold off
 end
 
