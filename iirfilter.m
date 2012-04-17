@@ -166,7 +166,7 @@ if do_plot == 1
 		hold on
 	end;
 	xlabel('Realteil \sigma');
-	ylabel('Imaginärteil j*\omega');
+	ylabel('Imaginaerteil j*\omega');
 	print('-depsc','../Ausarbeitung/fig/sebene');
 
 	hold off
