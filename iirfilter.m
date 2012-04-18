@@ -16,7 +16,7 @@ do_custom = 1;
 if do_plot == 1;
     freqs = findfigure('freqs');
     sebene = findfigure('sebene');
-    signals = findfigure('signals');
+    %signals = findfigure('signals');
     result = findfigure('result');
 
     axis auto;
@@ -152,11 +152,11 @@ if do_plot == 1
 
 	hold off
 
-	figure(signals);
-	for i = m;
-		plot(x,sigs(:,i),'color',cc(i,:));
-		hold on
-	end
+	%figure(signals);
+	%for i = m;
+	%	plot(x,sigs(:,i),'color',cc(i,:));
+	%	hold on
+	%end
 
 	hold off
 
