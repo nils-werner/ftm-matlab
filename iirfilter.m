@@ -145,7 +145,7 @@ if do_plot == 1
 		plot(ws(:,i)',20*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
 		hold on
 	end
-	axis([0 11000 70 180]);
+	axis([0 11000 70 190]);
 	xlabel('Frequenz (Hz)');
 	ylabel('Amplitude (dB)');
 	print('-depsc','../Ausarbeitung/fig/freqz');
@@ -165,6 +165,7 @@ if do_plot == 1
 		plot(sigmas(i),omegas(i), 'x-','color',cc(i,:));
 		hold on
 	end;
+	axis([-260 10 0 6e4]);
 	xlabel('Realteil \sigma');
 	ylabel('Imaginaerteil j*\omega');
 	print('-depsc','../Ausarbeitung/fig/sebene');
