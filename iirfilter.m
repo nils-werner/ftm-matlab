@@ -98,7 +98,7 @@ for i = m;
 	end
 
 	if do_plot == 1
-        [h,w] = freqz(num,den,[], T);
+        [h,w] = freqz(num,den,1:0.5:T, T);
         
 		sigmas = [sigmas sigma];
 		omegas = [omegas omega];
@@ -110,8 +110,7 @@ for i = m;
 		
 		sigs = [sigs sig'];
 
-		hs = [hs h];
-		ws = [ws w];
+		hs = [hs; h];
 	end
 end
 
@@ -142,10 +141,10 @@ if do_plot == 1
     hold off
 	figure(freqs);
 	for i = m;
-		plot(ws(:,i)',10*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
+		plot(w',10*log10( abs(as(i))*abs(hs(i,:)') / max(abs(hs(1,:)))),'-','color',cc(i,:));
 		hold on
 	end
-	axis([0 11000 30 100]);
+	axis([0 11000 -80 0]);
 	xlabel('Frequenz (Hz)');
 	ylabel('Amplitude (dB)');
 	print('-depsc','../Ausarbeitung/fig/freqz');
