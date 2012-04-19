@@ -142,10 +142,10 @@ if do_plot == 1
     hold off
 	figure(freqs);
 	for i = m;
-		plot(ws(:,i)',20*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
+		plot(ws(:,i)',10*log10(abs(as(i))*abs(hs(:,i)')),'color',cc(i,:));
 		hold on
 	end
-	axis([0 11000 70 190]);
+	axis([0 11000 30 100]);
 	xlabel('Frequenz (Hz)');
 	ylabel('Amplitude (dB)');
 	print('-depsc','../Ausarbeitung/fig/freqz');
