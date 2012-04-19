@@ -141,7 +141,7 @@ if do_plot == 1
     hold off
 	figure(freqs);
 	for i = m;
-		plot(w',10*log10( abs(as(i))*abs(hs(i,:)') / max(abs(hs(1,:)))),'-','color',cc(i,:));
+		plot(w',10*log10( abs(as(i))*abs(hs(i,:)') / max(abs(as(1))*abs(hs(1,:)))),'-','color',cc(i,:));
 		hold on
 	end
 	axis([0 11000 -80 0]);
