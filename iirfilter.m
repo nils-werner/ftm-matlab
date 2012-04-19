@@ -144,7 +144,7 @@ if do_plot == 1
 		plot(w',10*log10( abs(as(i))*abs(hs(i,:)') / max(abs(as(1))*abs(hs(1,:)))),'-','color',cc(i,:));
 		hold on
 	end
-	axis([0 11000 -80 0]);
+	axis([0 11000 -75 5]);
 	xlabel('Frequenz (Hz)');
 	ylabel('Amplitude (dB)');
 	print('-depsc','../Ausarbeitung/fig/freqz');
