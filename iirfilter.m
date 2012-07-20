@@ -83,6 +83,7 @@ end
 
 block_Apow = eye(size(block_A));
 
+% Blockverarbeitungsmatrizen erzeugen
 j = 1;
 while j <= blocksize
     block_Apow = block_Apow*block_A;
@@ -92,6 +93,7 @@ end
 
 block_A = block_Apow;
 
+% Signal erzeugen
 j = 1;
 while j <= samples
     y(j:j+blocksize-1) = block_CA * block_state;
@@ -100,12 +102,15 @@ while j <= samples
 end
 toc
 
+% Signal etwas dämpfen um clipping zu vermeiden
 y = y./max(abs(y)).*0.9;
 
+% Wiedergeben
 if do_play == 1
 	sound(y,T);
 end
 
+% WAV-Datei erzeugen
 if do_write == 1
 	wavwrite(y,T,'wav/filter.synth.wav');
 end
